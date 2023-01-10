@@ -2,7 +2,7 @@
 поставьте на нее PostgreSQL 14 через sudo apt
 проверьте что кластер запущен через sudo -u postgres pg_lsclusters
 
-    <img width="168" alt="Снимок экрана 2022-12-11 в 21 44 11" src="https://user-images.githubusercontent.com/99620296/211612374-55dc6adb-835d-4c96-ba83-d025e0664b13.png">
+   <img width="168" alt="Снимок экрана 2022-12-11 в 21 44 11" src="https://user-images.githubusercontent.com/99620296/211612374-55dc6adb-835d-4c96-ba83-d025e0664b13.png">
 
 зайдите из под пользователя postgres в psql и сделайте произвольную таблицу с произвольным содержимым
 postgres=# create table test(c1 text);
