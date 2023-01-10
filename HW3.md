@@ -30,9 +30,9 @@ postgres=# insert into test values('1');
 
     Запустить получилось:
 
-    <img width="705" alt="Снимок экрана 2022-12-11 в 21 44 30" src="https://user-images.githubusercontent.com/99620296/211613294-58f13ab3-6345-439d-83a8-86d22678f739.png">
+   <img width="705" alt="Снимок экрана 2022-12-11 в 21 44 30" src="https://user-images.githubusercontent.com/99620296/211613294-58f13ab3-6345-439d-83a8-86d22678f739.png">
 
 зайдите через через psql и проверьте содержимое ранее созданной таблицы
 
-    <img width="450" alt="Снимок экрана 2022-12-11 в 21 44 37" src="https://user-images.githubusercontent.com/99620296/211614008-7fbebe04-0f60-4f5b-befd-591d13d6b9aa.png">
+   <img width="450" alt="Снимок экрана 2022-12-11 в 21 44 37" src="https://user-images.githubusercontent.com/99620296/211614008-7fbebe04-0f60-4f5b-befd-591d13d6b9aa.png">
 
