@@ -41,7 +41,7 @@ postgres=# UPDATE test SET name = 'test_2' WHERE name = 'test';
 
 -----в третьей сессии добавил:
 
-
+postgres=# UPDATE test SET name = 'test_3' WHERE name = 'test';
 
 -----в четвертой сессии:
 SELECT * FROM pg_locks \gx
