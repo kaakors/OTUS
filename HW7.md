@@ -36,7 +36,7 @@
 >   test3
 > 
 >
->  -----в первой сессии:
+#####  -----в первой сессии:
 >  
 >  postgres=# begin;
 >  
@@ -45,93 +45,170 @@
 >  postgres=*# UPDATE test SET name = 'test_1' WHERE name = 'test';
 >  
 >  UPDATE 1
+>  
+####  -----во второй сессии:
 
------во второй сессии:
-postgres=# UPDATE test SET name = 'test_2' WHERE name = 'test';
+>  postgres=# UPDATE test SET name = 'test_2' WHERE name = 'test';
+>  
+>  2023-02-19 18:32:56.942 UTC [8350] LOG:  process 8350 still waiting for ShareLock on transaction 739 after 200.206 ms
 
-2023-02-19 18:32:56.942 UTC [8350] LOG:  process 8350 still waiting for ShareLock on transaction 739 after 200.206 ms
-2023-02-19 18:32:56.942 UTC [8350] DETAIL:  Process holding the lock: 8314. Wait queue: 8350.
-2023-02-19 18:32:56.942 UTC [8350] CONTEXT:  while updating tuple (0,1) in relation "test"
-2023-02-19 18:32:56.942 UTC [8350] STATEMENT:  UPDATE test SET name = 'test_2' where name = 'test';
+>  2023-02-19 18:32:56.942 UTC [8350] DETAIL:  Process holding the lock: 8314. Wait queue: 8350.
 
------в третьей сессии добавил:
+>  2023-02-19 18:32:56.942 UTC [8350] CONTEXT:  while updating tuple (0,1) in relation "test"
 
-postgres=# UPDATE test SET name = 'test_3' WHERE name = 'test';
+>  2023-02-19 18:32:56.942 UTC [8350] STATEMENT:  UPDATE test SET name = 'test_2' where name = 'test';
 
------в четвертой сессии:
-SELECT * FROM pg_locks \gx
+#### -----в третьей сессии добавил:
 
--[ RECORD 1 ]------+------------------------------
-locktype           | relation
-database           | 14486
-relation           | 12290
-page               | 
-tuple              | 
-virtualxid         | 
-transactionid      | 
-classid            | 
-objid              | 
-objsubid           | 
-virtualtransaction | 6/16
-pid                | 8448
-mode               | AccessShareLock
-granted            | t
-fastpath           | t
-waitstart          | 
--[ RECORD 2 ]------+------------------------------
-locktype           | virtualxid
-database           | 
-relation           | 
-page               | 
-tuple              | 
-virtualxid         | 6/16
-transactionid      | 
-classid            | 
-objid              | 
-objsubid           | 
-virtualtransaction | 6/16
-pid                | 8448
-mode               | ExclusiveLock
-granted            | t
-fastpath           | t
-waitstart          | 
--[ RECORD 3 ]------+------------------------------
-locktype           | relation
-database           | 14486
-relation           | 16384
-page               | 
-tuple              | 
-virtualxid         | 
-transactionid      | 
-classid            | 
-objid              | 
-objsubid           | 
-virtualtransaction | 5/29
-pid                | 8417
-mode               | RowExclusiveLock
-granted            | t
-fastpath           | t
-waitstart          | 
--[ RECORD 4 ]------+------------------------------
-locktype           | virtualxid
-database           | 
-relation           | 
-page               | 
-tuple              | 
-virtualxid         | 5/29
-transactionid      | 
-classid            | 
-objid              | 
-objsubid           | 
-virtualtransaction | 5/29
-pid                | 8417
-mode               | ExclusiveLock
-granted            | t
-fastpath           | t
-waitstart          | 
--[ RECORD 5 ]------+------------------------------
-locktype           | relation
-database           | 14486
+>  postgres=# UPDATE test SET name = 'test_3' WHERE name = 'test';
+>  
+
+#### -----в четвертой сессии:
+
+>  SELECT * FROM pg_locks \gx
+>
+>  [ RECORD 1 ]------+------------------------------
+
+>  locktype           | relation
+>
+>  database           | 14486
+>  
+>  relation           | 12290
+>  
+>  page               | 
+>  
+>  tuple              | 
+>  
+>  virtualxid         | 
+>  
+>  transactionid      | 
+>  
+>  classid            | 
+>  
+>  objid              | 
+>  
+>  objsubid           |
+>   
+>  virtualtransaction | 6/16
+>  
+>  pid                | 8448
+>  
+>  mode               | AccessShareLock
+>  
+>  granted            | t
+>  
+>  fastpath           | t
+>  
+>  waitstart          | 
+>  
+>  [ RECORD 2 ]------+------------------------------
+>  
+>  locktype           | virtualxid
+>  
+>  database           | 
+>  
+>  relation           | 
+>  
+>  page               | 
+>  
+>  tuple              | 
+>  
+>  virtualxid         | 6/16
+>  
+>  transactionid      | 
+>  
+>  classid            | 
+>  
+>  objid              | 
+>  
+>  objsubid           | 
+>  
+>  virtualtransaction | 6/16
+>  
+>  pid                | 8448
+>  
+>  mode               | ExclusiveLock
+>  
+>  granted            | t
+>  
+>  fastpath           | t
+>  
+>  waitstart          | 
+>  
+>  [ RECORD 3 ]------+------------------------------
+>  
+>  locktype           | relation
+>  
+>  database           | 14486
+>  
+>  relation           | 16384
+>  
+>  page               | 
+>  
+>  tuple              | 
+>  
+>  virtualxid         | 
+>  
+>  transactionid      | 
+>  
+>  classid            | 
+>  
+>  objid              | 
+>  
+>  objsubid           | 
+>  
+>  virtualtransaction | 5/29
+>  
+>  pid                | 8417
+>  
+>  mode               | RowExclusiveLock
+>  
+>  granted            | t
+>  
+>  fastpath           | t
+>  
+>  waitstart          | 
+>  
+>  [ RECORD 4 ]------+------------------------------
+>  
+>  locktype           | virtualxid
+>  
+>  database           | 
+>  
+>  relation           | 
+>  
+>  page               | 
+>  
+>  tuple              | 
+>  
+>  virtualxid         | 5/29
+>  
+>  transactionid      | 
+>  
+>  classid            | 
+>  
+>  objid              | 
+>  
+>  objsubid           | 
+>  
+>  virtualtransaction | 5/29
+>  
+>  pid                | 8417
+>  
+>  mode               | ExclusiveLock
+>  
+>  granted            | t
+>  
+>  fastpath           | t
+>  
+>  waitstart          | 
+>  
+>  [ RECORD 5 ]------+------------------------------
+>  
+>  locktype           | relation
+>  
+>  database           | 14486
+>  
 relation           | 16384
 page               | 
 tuple              | 
@@ -302,23 +379,26 @@ waitstart          |
 
 
 
-3) Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
+### 3) Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
---------в первой сессии:
+#### --------в первой сессии:
+
 postgres=# BEGIN;
 BEGIN
 postgres=*# UPDATE test SET name = 'test_0' WHERE name = 'test';
 UPDATE 1
 postgres=*# UPDATE test SET name = 'test_3' WHERE name = 'test1';
 
----------во второй сессии:
+#### ---------во второй сессии:
+
 postgres=# BEGIN;
 BEGIN
 postgres=*# UPDATE test SET name = 'test_1' WHERE name = 'test1';
 UPDATE 1
 postgres=*# UPDATE test SET name = 'test_4' WHERE name = 'test2';
 
-----------в третьей сесии:
+#### ----------в третьей сесии:
+
 postgres=# BEGIN;
 BEGIN
 postgres=*# UPDATE test SET name = 'test_2' WHERE name = 'test2';
@@ -332,7 +412,7 @@ Process 8623 waits for ShareLock on transaction 748; blocked by process 8621.
 КОНТЕКСТ:  while updating tuple (0,7) in relation "test"
 
 
-----------смотрим логи сервера
+#### ----------смотрим логи сервера
 
 2023-02-19 19:10:54.937 UTC [8629] DETAIL:  Process holding the lock: 8623. Wait queue: 8629.
 2023-02-19 19:10:54.937 UTC [8629] CONTEXT:  while updating tuple (0,2) in relation "test"
@@ -359,11 +439,11 @@ Process 8623 waits for ShareLock on transaction 748; blocked by process 8621.
 2023-02-19 19:11:59.614 UTC [8623] CONTEXT:  while updating tuple (0,3) in relation "test"
 2023-02-19 19:11:59.614 UTC [8623] STATEMENT:  UPDATE test SET name = 'test_4' WHERE name = 'test2';
 
-Вывод:
+### Вывод:
 
-Да, по логам можно разобрать в какой момент и из-за каких действий произошла блокировка
+>  Да, по логам можно разобрать в какой момент и из-за каких действий произошла блокировка
 
 
-4) Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
+### 4) Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
 
-    нет, такая ситуация невозможна
+>      нет, такая ситуация невозможна
