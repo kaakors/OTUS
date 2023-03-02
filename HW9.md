@@ -48,13 +48,13 @@
 ### Подписываемся с 3го кластера на таблицы с кластера 1 и 2
 
 
->   CREATE SUBSCROPTION test3S1 
+>     CREATE SUBSCROPTION test3S1 
 >    
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
 >     
 >     PUBLICATION testP2 WITH (copy_data=true);
 >     
->   CREATE SUBSCROPTION test3S2  
+>     CREATE SUBSCROPTION test3S2  
 >   
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
 >     
