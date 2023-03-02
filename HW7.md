@@ -18,12 +18,12 @@
 
 >  select * from test;
 >   name  
->  -------
+> 
 >   test
 >   test1
 >   test2
 >   test3
->  (4 rows)
+> 
 >
 >  -----в первой сессии:
 >  postgres=# begin;
