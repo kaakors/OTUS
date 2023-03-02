@@ -53,6 +53,8 @@
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
 >     
 >     PUBLICATION testP2 WITH (copy_data=true);
+
+
 >     
 >     CREATE SUBSCROPTION test3S2  
 >   
