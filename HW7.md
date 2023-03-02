@@ -1,8 +1,11 @@
 ### 1) Настройте сервер так, чтобы в журнал сообщений сбрасывалась информация о блокировках, удерживаемых более 200 миллисекунд. Воспроизведите ситуацию, при которой в журнале появятся такие сообщения.
 
 >    - ALTER SYSTEM SET log_lock_waits = on;
+>    
 >    - ALTER SYSTEM SET deadlock_timeout = 200;
+>    
 >    - далее выполняем перезапуск службы postgresql:
+>    
 >      systemctl restart postgresql-14
 
 ### 2) Смоделируйте ситуацию обновления одной и той же строки тремя командами UPDATE в разных сеансах. Изучите возникшие блокировки в представлении pg_locks и убедитесь, что все они понятны. Пришлите список блокировок и объясните, что значит каждая.
@@ -10,25 +13,37 @@
 ##### Создаем таблицу для тестов:
 
 >  CREATE TABLE test (name varchar(100));
+>  
 >  INSERT INTO test(name) values ('test');
+>  
 >  INSERT INTO test(name) values ('test1');
+>  
 >  INSERT INTO test(name) values ('test2');
+>  
 >  INSERT INTO test(name) values ('test3');
 
 
 >  select * from test;
+>  
 >   name  
 > 
 >   test
+>   
 >   test1
+>   
 >   test2
+>   
 >   test3
 > 
 >
 >  -----в первой сессии:
+>  
 >  postgres=# begin;
+>  
 >  BEGIN
+>  
 >  postgres=*# UPDATE test SET name = 'test_1' WHERE name = 'test';
+>  
 >  UPDATE 1
 
 -----во второй сессии:
