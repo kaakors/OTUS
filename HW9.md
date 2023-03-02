@@ -17,11 +17,10 @@
 >   
 >   CREATE TABLE test2(id integer); 
 
-### Аналогично выполняем на 2ом и 3ем кластере
+##### Аналогично выполняем на 2ом и 3ем кластере
 
->   На 1 ВМ создаем публикацию таблицы test
->   
->   На 2 ВМ создаем публикацию таблицы test2
+### На 1 ВМ создаем публикацию таблицы test
+### На 2 ВМ создаем публикацию таблицы test2
 >   
 >   CREATE PUBLICATION testP FOR TABLE test;
 >   
@@ -32,23 +31,31 @@
 >   1:
 >   
 >   CREATE SUBSCROPTION test2S  
+>   
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
+>     
 >     PUBLICATION testP2 WITH (copy_data=true);
 >     
 >   2:
 >   
 >   CREATE SUBSCROPTION testS  
+>   
 >     CONNECTION 'host=127.0.0.1 port=5432 user=postgres password=postgres dbname=postgres'  
+>     
 >     PUBLICATION testP WITH (copy_data=true);
   
   
 ### Подписываемся с 3го кластера на таблицы с кластера 1 и 2
 
 
->   CREATE SUBSCROPTION test3S1  
+>   CREATE SUBSCROPTION test3S1 
+>    
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
+>     
 >     PUBLICATION testP2 WITH (copy_data=true);
 >     
 >   CREATE SUBSCROPTION test3S2  
+>   
 >     CONNECTION 'host=127.0.0.1 port=5433 user=postgres password=postgres dbname=postgres'  
+>     
 >     PUBLICATION testP WITH (copy_data=true);
