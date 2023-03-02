@@ -8,19 +8,23 @@
 ### Выставляем нужный уровень репликации:
 
 >   ALTER SYSTEM SET wal_level=logical;
+>   
 >   перезагружаем сервис postgresql для применения настроек
 
 ### Создаем тестовые таблицы:
 
 >   CREATE TABLE test(id integer);  
+>   
 >   CREATE TABLE test2(id integer); 
 
 ### Аналогично выполняем на 2ом и 3ем кластере
 
 >   На 1 ВМ создаем публикацию таблицы test
+>   
 >   На 2 ВМ создаем публикацию таблицы test2
 >   
 >   CREATE PUBLICATION testP FOR TABLE test;
+>   
 >   CREATE PUBLICATION testP2 FOR TABLE test2;
 
 ### Подписываемся на 1м кластера на таблицу test2 кластера 2, на 2ом кластере на таблицу test1 кластера 1
